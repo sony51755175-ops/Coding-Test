@@ -4,31 +4,29 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-	public static void main(String[] args) throws IOException{
+	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
+		String str = br.readLine();
+		StringTokenizer st = new StringTokenizer(str);
 		
-		int n = Integer.parseInt(st.nextToken());
-		int target = Integer.parseInt(st.nextToken());
+		int N = Integer.parseInt(st.nextToken()), K = Integer.parseInt(st.nextToken());
+		int[] A = new int[N];
+		for(int i = 0; i < N; i++)
+			A[i] = Integer.parseInt(br.readLine());
+			
+		int temp = N-1, cnt = 0;
 		
-		int tmp[] = new int [n];
-		
-		for(int i = 0; i < n; i++) {
-			tmp[i] = Integer.parseInt(br.readLine());
-		}
-		
-		int count = 0;
-		int start = n - 1;
-		while(target != 0) {
-			if(target >= tmp[start]) {
-				target -= tmp[start];
-				count += 1;
+		while(K != 0) {
+			if(K / A[temp] == 0) {
+				temp--;
+				continue;
 			}
 			else {
-				start -=1;
+				cnt += K / A[temp];
+				K %= A[temp];
 			}
-			
+			temp--;		
 		}
-		System.out.println(count);
+		System.out.println(cnt);
 	}
 }
